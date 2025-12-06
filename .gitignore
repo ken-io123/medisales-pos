@@ -1,6 +1,5 @@
-# ==========================
+
 # .NET / C# / Visual Studio
-# ==========================
 
 # Build results
 [Dd]ebug/
@@ -59,9 +58,7 @@ bld/
 .idea/
 *.sln.iml
 
-# ==========================
 # Sensitive Configuration
-# ==========================
 
 # Protect actual connection strings and secrets
 **/appsettings.json
@@ -70,9 +67,7 @@ bld/
 *.config
 secrets.json
 
-# ==========================
 # Node.js / Frontend
-# ==========================
 
 # Dependencies
 node_modules/
@@ -104,17 +99,13 @@ coverage/
 *.njsproj
 *.sw?
 
-# ==========================
 # Database
-# ==========================
 
 *.db
 *.sqlite
 *.sqlite3
 
-# ==========================
 # OS Generated
-# ==========================
 
 # Windows
 Thumbs.db
@@ -131,9 +122,7 @@ $RECYCLE.BIN/
 *~
 .directory
 
-# ==========================
 # Other
-# ==========================
 
 # User-specific files
 *.user
