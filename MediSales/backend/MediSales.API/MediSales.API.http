@@ -1,0 +1,6 @@
+@MediSales.API_HostAddress = http://localhost:5012
+
+GET {{MediSales.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

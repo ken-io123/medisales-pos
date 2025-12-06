@@ -1,0 +1,32 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MediSales", "MediSales", "{03E99BAB-5C94-41B1-29DA-12634304AB3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{DE3832A5-87B0-1402-D79B-4F3811755FDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediSales.API", "MediSales\backend\MediSales.API\MediSales.API.csproj", "{F679954C-219D-DF72-2ED3-D3F9AADE6978}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F679954C-219D-DF72-2ED3-D3F9AADE6978}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F679954C-219D-DF72-2ED3-D3F9AADE6978}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F679954C-219D-DF72-2ED3-D3F9AADE6978}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F679954C-219D-DF72-2ED3-D3F9AADE6978}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DE3832A5-87B0-1402-D79B-4F3811755FDF} = {03E99BAB-5C94-41B1-29DA-12634304AB3B}
+		{F679954C-219D-DF72-2ED3-D3F9AADE6978} = {DE3832A5-87B0-1402-D79B-4F3811755FDF}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {15502DD8-B708-4A52-816C-59D53BF8292B}
+	EndGlobalSection
+EndGlobal
