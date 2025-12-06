@@ -266,8 +266,8 @@ ken-io123
 
 ## 📞 Support
 
-For support, email your-email@example.com or create an issue in the repository.
+For support, email kenmesana123@gmail.com 
 
 ---
 
-**Note:** This system is designed for educational and commercial use. Make sure to review security settings before deploying to production.
+**Note:** This system is designed for educational and project use. Make sure to review security settings before deploying to production.
