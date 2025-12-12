@@ -1,101 +1,99 @@
-# 🏥 MediSales POS and Inventory Management System
+# MediSales POS and Inventory Management System
 
-A comprehensive Point of Sale (POS) and Inventory Management System designed specifically for pharmaceutical and medical supply businesses. Built with .NET 9 and React 19, this system provides real-time inventory tracking, sales management, and business analytics.
+A complete Point of Sale and Inventory Management System built for pharmaceutical and medical supply businesses. This system handles real-time inventory tracking, sales transactions, and business reporting.
 
-## ✨ Features
+## Features
 
-### 🔐 Authentication & User Management
-- Secure login system with role-based access control
-- User profile management with profile pictures
-- Staff management with different permission levels
-- Real-time online status tracking
+### Authentication & User Management
+- Role-based access control for different user types
+- User profiles with customizable pictures
+- Staff permission management
+- Online status tracking
 
-### 💼 Sales & Transactions
-- Intuitive POS interface for quick transactions
-- Barcode scanning support
-- Transaction history and tracking
-- Void/cancel transaction capabilities
-- Receipt generation
+### Sales & Transactions
+- Fast POS interface for processing sales
+- Barcode scanner integration
+- Complete transaction history
+- Transaction void and cancellation
+- Receipt printing
 
-### 📦 Inventory Management
-- Real-time inventory tracking
-- Stock movement monitoring
-- Low stock alerts and notifications
-- Product categorization
-- Batch/expiry date management
-- Automated reorder notifications
+### Inventory Management
+- Real-time stock tracking
+- Movement and audit logs
+- Low stock alerts
+- Product categories and organization
+- Expiry date tracking
+- Automated reorder alerts
 
-### 📊 Dashboard & Analytics
-- Real-time sales dashboard
-- Revenue and profit analytics
-- Top-selling products reports
-- Inventory status overview
-- Performance metrics
-- Customizable date range filters
+### Dashboard & Analytics
+- Sales performance metrics
+- Revenue and profit tracking
+- Product performance reports
+- Inventory overview
+- Custom date range filtering
 
-### 💬 Real-time Communication
-- Built-in messaging system
-- Real-time notifications using SignalR
-- Staff-to-staff communication
+### Communication
+- Internal messaging between staff
+- Real-time notifications via SignalR
 - System alerts and warnings
 
-### 📄 Reports
-- Sales reports (daily, weekly, monthly, yearly)
-- Inventory reports
-- Transaction history
-- Export to Excel functionality
-- Comprehensive analytics
+### Reports
+- Daily, weekly, monthly, and yearly sales reports
+- Inventory status reports
+- Transaction logs
+- Excel export functionality
+- Analytics and insights
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 ### Backend
-- **.NET 9** - Modern C# web API
-- **ASP.NET Core** - Web framework
-- **Entity Framework Core** - ORM
-- **MySQL** - Database
-- **SignalR** - Real-time communication
-- **JWT** - Authentication
+- .NET 9 with C#
+- ASP.NET Core Web API
+- Entity Framework Core for database access
+- MySQL database
+- SignalR for real-time features
+- JWT authentication
 
 ### Frontend
-- **React 19** - UI library
-- **TypeScript** - Type-safe JavaScript
-- **Vite** - Build tool
-- **TailwindCSS** - Styling
-- **Axios** - HTTP client
-- **React Router** - Navigation
-- **Recharts** - Data visualization
-- **SignalR Client** - Real-time updates
-- **React Hot Toast** - Notifications
+- React 19 with TypeScript
+- Vite for development and building
+- TailwindCSS for styling
+- Axios for API requests
+- React Router for navigation
+- Recharts for visualizations
+- SignalR Client for real-time updates
+- React Hot Toast for notifications
 
-## 📋 Prerequisites
+## Prerequisites
 
-Before running this application, make sure you have the following installed:
+You'll need these installed before running the application:
 
-- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
-- [Node.js](https://nodejs.org/) (v18 or higher)
-- [MySQL](https://dev.mysql.com/downloads/mysql/) (v8.0 or higher)
-- [Git](https://git-scm.com/downloads)
+- .NET 9 SDK (https://dotnet.microsoft.com/download/dotnet/9.0)
+- Node.js v18 or higher (https://nodejs.org/)
+- MySQL v8.0 or higher (https://dev.mysql.com/downloads/mysql/)
+- Git (https://git-scm.com/downloads)
 
-## 🚀 Getting Started
+## Getting Started
 
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/medisales-pos.git
+git clone https://github.com/ken-io123/medisales-pos.git
 cd medisales-pos
 ```
 
 ### 2. Database Setup
 
-1. Create a MySQL database:
+First, create the MySQL database:
+
 ```sql
 CREATE DATABASE medisales_db;
 ```
 
-2. Configure your database connection in the backend:
-   - Copy `appsettings.example.json` to `appsettings.json`
-   - Copy `appsettings.example.json` to `appsettings.Development.json`
-   - Update the connection string with your MySQL credentials:
+Then configure the database connection:
+- Copy `appsettings.example.json` to `appsettings.json`
+- Copy `appsettings.example.json` to `appsettings.Development.json`
+- Update the connection string with your database credentials:
 
 ```json
 {
@@ -138,21 +136,21 @@ npm run dev
 
 The frontend will be available at `http://localhost:5173`
 
-## 🔑 Default Login Credentials
+## Default Login Credentials
 
-After seeding the database, you can use these default credentials:
+The database seeder creates these default accounts for testing:
 
-**Admin Account:**
-- Username: `admin`
-- Password: `admin123`
+Admin Account:
+- Username: admin
+- Password: admin123
 
-**Cashier Account:**
-- Username: `cashier1`
-- Password: `cashier123`
+Cashier Account:
+- Username: cashier1
+- Password: cashier123
 
-⚠️ **Important:** Change these default passwords after your first login!
+Important: Change these passwords after first login.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 MediSales POS and Inventory Management System/
@@ -180,21 +178,18 @@ MediSales POS and Inventory Management System/
 └── MediSales POS and Inventory Management System.sln
 ```
 
-## 🔧 Configuration
+## Configuration
 
-### Backend Configuration
+Backend configuration files:
+- appsettings.json - Production settings
+- appsettings.Development.json - Development settings
 
-Key configuration files:
-- `appsettings.json` - Production settings
-- `appsettings.Development.json` - Development settings
+Frontend configuration:
+- vite.config.ts - Vite build configuration
+- tailwind.config.js - TailwindCSS styling
+- tsconfig.json - TypeScript compiler options
 
-### Frontend Configuration
-
-- `vite.config.ts` - Vite configuration
-- `tailwind.config.js` - TailwindCSS configuration
-- `tsconfig.json` - TypeScript configuration
-
-## 🧪 Running Tests
+## Running Tests
 
 ```bash
 # Navigate to the test project
@@ -207,63 +202,64 @@ dotnet test
 dotnet test --collect:"XPlat Code Coverage"
 ```
 
-## 📦 Building for Production
+## Building for Production
 
-### Backend
+Backend build:
 ```bash
 cd MediSales/backend/MediSales.API
 dotnet publish -c Release -o ./publish
 ```
 
-### Frontend
+Frontend build:
+
 ```bash
 cd MediSales/frontend/medisales-frontend
 npm run build
 ```
 
-The production build will be in the `dist` folder.
+The production files will be in the dist folder.
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
-### Database Connection Issues
-- Verify MySQL is running
-- Check connection string credentials
-- Ensure database exists
+Database connection problems:
+- Check if MySQL service is running
+- Verify connection string credentials
+- Confirm database exists
 - Check firewall settings
 
-### Port Already in Use
-- Backend: Change ports in `Properties/launchSettings.json`
-- Frontend: Vite will automatically try the next available port
+Port conflicts:
+- Backend: Modify ports in Properties/launchSettings.json
+- Frontend: Vite will use next available port automatically
 
-### Migration Issues
+Database migration errors:
 ```bash
 # Reset database
 dotnet ef database drop
 dotnet ef database update
 ```
 
-## 🤝 Contributing
+## Contributing
+
+If you'd like to contribute:
 
 1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
+2. Create a feature branch (git checkout -b feature/NewFeature)
+3. Commit your changes (git commit -m 'Add NewFeature')
+4. Push to the branch (git push origin feature/NewFeature)
 5. Open a Pull Request
 
-## 👥 Authors
+## License
+
+This project is licensed under the MIT License.
+
+## Author
 
 ken-io123
 
-## 🙏 Acknowledgments
+## Support
 
-- Built with modern web technologies
-- Inspired by real-world pharmacy management needs
-- Special thanks to all contributors
-
-## 📞 Support
-
-For support, email kenmesana123@gmail.com 
+For questions or issues, contact: kenmesana123@gmail.com
 
 ---
 
-**Note:** This system is designed for educational and project use. Make sure to review security settings before deploying to production.
+Note: This system is intended for educational and project purposes. Review all security settings before using in production.
