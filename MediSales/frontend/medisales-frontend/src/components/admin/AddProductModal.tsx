@@ -101,8 +101,8 @@ const AddProductModal = ({ open, categories, onClose, onSave }: AddProductModalP
 
 	return (
 		<div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 px-4 py-8 backdrop-blur">
-			<div className="w-full max-w-3xl rounded-3xl bg-white shadow-2xl">
-				<div className="flex items-center justify-between p-8 pb-4">
+			<div className="w-full max-w-3xl rounded-3xl bg-white shadow-2xl flex flex-col max-h-[90vh]">
+				<div className="flex items-center justify-between p-8 pb-4 flex-shrink-0">
 					<div>
 						<h2 className="text-lg font-semibold text-slate-900">Add Product</h2>
 						<p className="text-sm text-brand-muted">Fill in the details below to register a new inventory item.</p>
@@ -118,7 +118,7 @@ const AddProductModal = ({ open, categories, onClose, onSave }: AddProductModalP
 					</button>
 				</div>
 
-				<div className="max-h-[70vh] overflow-y-auto px-8">
+				<div className="overflow-y-auto px-8 flex-1">
 					{error ? (
 						<div className="mb-4 rounded-2xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-600">
 							{error}
@@ -126,108 +126,98 @@ const AddProductModal = ({ open, categories, onClose, onSave }: AddProductModalP
 					) : null}
 
 					<div className="grid gap-6 sm:grid-cols-2">
-					<label className="text-sm font-semibold text-slate-700">
-						Product Code
-						<input
-							value={form.productCode}
-							onChange={(event) => handleChange('productCode', event.target.value)}
-							className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primary/20"
-							placeholder="e.g. MED-1001"
-							disabled={saving}
-						/>
-					</label>
-
-					<label className="text-sm font-semibold text-slate-700">
-						Product Name
-						<input
-							value={form.productName}
-							onChange={(event) => handleChange('productName', event.target.value)}
-							className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primary/20"
-							placeholder="e.g. Paracetamol 500mg"
-							disabled={saving}
-						/>
-					</label>
-
-					<label className="text-sm font-semibold text-slate-700">
-						Category
-						<select
-							value={form.category}
-							onChange={(event) => handleChange('category', event.target.value)}
-							className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primary/20"
-							disabled={saving}
-						>
-							<option value="">Select category</option>
-							{normalizedCategories.map((category) => (
-								<option key={category} value={category}>
-									{category}
-								</option>
-							))}
-						</select>
-					</label>
-
-					<label className="text-sm font-semibold text-slate-700">
-						Supplier
-						<input
-							value={form.supplierName}
-							onChange={(event) => handleChange('supplierName', event.target.value)}
-							className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primary/20"
-							placeholder="e.g. MediSupplies Inc."
-							disabled={saving}
-						/>
-					</label>
-
-					<label className="text-sm font-semibold text-slate-700">
-						Unit Price (PHP)
-						<input
-							type="number"
-							min="0"
-							step="0.01"
-							value={form.unitPrice}
-							onChange={(event) => handleChange('unitPrice', event.target.value)}
-							className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primary/20"
-							placeholder="0.00"
-							disabled={saving}
-						/>
-					</label>
-
-					<label className="text-sm font-semibold text-slate-700">
-						Stock Quantity
-						<input
-							type="number"
-							min="0"
-							value={form.stockQuantity}
-							onChange={(event) => handleChange('stockQuantity', event.target.value)}
-							className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primary/20"
-							placeholder="0"
-							disabled={saving}
-						/>
-					</label>
-
-					<label className="text-sm font-semibold text-slate-700">
-						Expiry Date
-						<input
-							type="date"
-							value={form.expiryDate}
-							onChange={(event) => handleChange('expiryDate', event.target.value)}
-							className="mt-2 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primary/20"
-							disabled={saving}
-						/>
-					</label>
-
-					<label className="text-sm font-semibold text-slate-700 sm:col-span-2">
-						Description (optional)
-						<textarea
-							value={form.description}
-							onChange={(event) => handleChange('description', event.target.value)}
-							className="mt-2 h-24 w-full rounded-2xl border border-slate-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-brand-primary focus:outline-none focus:ring-4 focus:ring-brand-primary/20"
-							placeholder="Add dosage, instructions, or other notes"
+				<label className="text-sm font-semibold text-slate-700">
+					Product Code
+					<input
+						value={form.productCode}
+						onChange={(event) => handleChange('productCode', event.target.value)}
+						className="mt-2 w-full rounded-2xl border-2 border-blue-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
+						placeholder="e.g. MED-1001"
+						disabled={saving}
+					/>
+				</label>				<label className="text-sm font-semibold text-slate-700">
+					Product Name
+					<input
+						value={form.productName}
+						onChange={(event) => handleChange('productName', event.target.value)}
+						className="mt-2 w-full rounded-2xl border-2 border-blue-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
+						placeholder="e.g. Paracetamol 500mg"
 						disabled={saving}
 					/>
 				</label>
-			</div>
-			</div>
 
-				<div className="flex justify-end gap-3 px-8 pb-8 pt-4 relative z-10">
+				<label className="text-sm font-semibold text-slate-700">
+					Category
+					<select
+						value={form.category}
+						onChange={(event) => handleChange('category', event.target.value)}
+						className="mt-2 w-full rounded-2xl border-2 border-blue-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
+						disabled={saving}
+					>
+						<option value="">Select category</option>
+						{normalizedCategories.map((category) => (
+							<option key={category} value={category}>
+								{category}
+							</option>
+						))}
+					</select>
+				</label>
+
+				<label className="text-sm font-semibold text-slate-700">
+					Supplier
+					<input
+						value={form.supplierName}
+						onChange={(event) => handleChange('supplierName', event.target.value)}
+						className="mt-2 w-full rounded-2xl border-2 border-blue-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
+						placeholder="e.g. MediSupplies Inc."
+						disabled={saving}
+					/>
+				</label>				<label className="text-sm font-semibold text-slate-700">
+					Unit Price (PHP)
+					<input
+						type="number"
+						min="0"
+						step="0.01"
+						value={form.unitPrice}
+						onChange={(event) => handleChange('unitPrice', event.target.value)}
+						className="mt-2 w-full rounded-2xl border-2 border-blue-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
+						placeholder="0.00"
+						disabled={saving}
+					/>
+				</label>				<label className="text-sm font-semibold text-slate-700">
+					Stock Quantity
+					<input
+						type="number"
+						min="0"
+						value={form.stockQuantity}
+						onChange={(event) => handleChange('stockQuantity', event.target.value)}
+						className="mt-2 w-full rounded-2xl border-2 border-blue-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
+						placeholder="0"
+						disabled={saving}
+					/>
+				</label>				<label className="text-sm font-semibold text-slate-700">
+					Expiry Date
+					<input
+						type="date"
+						value={form.expiryDate}
+						onChange={(event) => handleChange('expiryDate', event.target.value)}
+						className="mt-2 w-full rounded-2xl border-2 border-blue-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
+						disabled={saving}
+					/>
+				</label>				<label className="text-sm font-semibold text-slate-700 sm:col-span-2">
+					Description (optional)
+					<textarea
+						value={form.description}
+						onChange={(event) => handleChange('description', event.target.value)}
+						className="mt-2 h-24 w-full rounded-2xl border-2 border-blue-200 px-4 py-3 text-sm font-medium text-slate-900 shadow-inner transition focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/20"
+						placeholder="Add dosage, instructions, or other notes"
+					disabled={saving}
+				/>
+			</label>
+		</div>
+		</div>
+
+			<div className="flex justify-end gap-3 px-8 pb-8 pt-4 bg-white border-t border-slate-100 flex-shrink-0">
 					<button
 						type="button"
 						onClick={onClose}
@@ -237,10 +227,10 @@ const AddProductModal = ({ open, categories, onClose, onSave }: AddProductModalP
 						Cancel
 					</button>
 					<button
-						type="button"
-						onClick={handleSubmit}
-						className="rounded-2xl bg-gradient-to-r from-brand-primary to-brand-secondary px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-brand-primary/30 transition hover:brightness-105 disabled:opacity-75 disabled:cursor-not-allowed"
-						disabled={saving}
+					type="button"
+					onClick={handleSubmit}
+					className="rounded-2xl bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 transition hover:bg-blue-700 hover:shadow-xl disabled:opacity-75 disabled:cursor-not-allowed"
+					disabled={saving}
 					>
 						{saving ? 'Saving...' : 'Save Product'}
 					</button>

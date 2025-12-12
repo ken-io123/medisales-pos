@@ -279,13 +279,7 @@ const POSTransaction = () => {
         return [...previous, { product, quantity: quantityToAdd }];
       });
 
-      // Show success message with quantity
-      if (added && !options?.silent) {
-        setFeedback({
-          type: 'success',
-          message: `Added ${quantityToAdd}x ${product.productName} to cart.`,
-        });
-      }
+      // Don't show success messages for adding to cart
 
       return added;
     },
@@ -300,22 +294,26 @@ const POSTransaction = () => {
         return;
       }
 
-      setFeedback({ type: 'info', message: 'Looking up barcode...' });
-
       try {
         const product = await posService.findProductByCode(trimmed);
 
         if (!product) {
-          setFeedback({ type: 'error', message: `No product found for barcode ${trimmed}.` });
+          setFeedback({ type: 'error', message: `No product found for barcode: ${trimmed}` });
           return;
         }
 
-        const added = handleAddToCart(product, { silent: true });
+        // Check if product has stock
+        if (product.stockQuantity <= 0) {
+          setFeedback({ type: 'error', message: `${product.productName} is out of stock!` });
+          return;
+        }
 
+        // Add to cart and show success message
+        const added = handleAddToCart(product, { quantity: 1 });
         if (added) {
-          setFeedback({
-            type: 'success',
-            message: `${product.productName} added to cart via scanner.`,
+          setFeedback({ 
+            type: 'success', 
+            message: `✓ ${product.productName} added to cart via barcode scan!` 
           });
         }
       } catch (error) {
@@ -576,19 +574,20 @@ const POSTransaction = () => {
 
   return (
     <>
-      <div className="space-y-8">
+      <div className="space-y-4 p-6">
       <header className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold text-slate-900 tracking-tight">POS TERMINAL</h1>
-          <p className="mt-1 text-sm font-bold text-slate-500 uppercase tracking-wide">Process sales and manage checkout</p>
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">POS TERMINAL</h1>
+          <p className="mt-1 text-xs sm:text-sm font-bold text-slate-500 uppercase tracking-wide">Process sales and manage checkout</p>
         </div>
         <button
           type="button"
           onClick={handleScanBarcode}
-          className="flex items-center gap-2 rounded-xl border-2 border-blue-500 bg-gradient-to-br from-blue-500 to-blue-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0"
+          className="flex items-center gap-2 rounded-xl border-2 border-blue-500 bg-gradient-to-br from-blue-500 to-blue-600 px-4 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-lg shadow-blue-500/30 transition-all hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 whitespace-nowrap"
         >
-          <Scan className="h-5 w-5" aria-hidden="true" />
-          SCAN BARCODE
+          <Scan className="h-4 w-4 sm:h-5 sm:w-5" aria-hidden="true" />
+          <span className="hidden xs:inline">SCAN BARCODE</span>
+          <span className="xs:hidden">SCAN</span>
         </button>
       </header>
 
@@ -631,26 +630,26 @@ const POSTransaction = () => {
         </div>
       ) : null}
 
-      <div className="grid gap-6 lg:grid-cols-[2fr_1fr]" style={{ height: 'calc(100vh - 280px)', minHeight: '500px' }}>
-        <section className="flex flex-col h-full overflow-hidden">
+      <div className="grid gap-4 lg:grid-cols-[2fr_1fr]">
+        <section className="flex flex-col overflow-hidden" style={{ minHeight: '400px', maxHeight: 'calc(100vh - 280px)' }}>
           <div className="rounded-2xl border-2 border-slate-200 bg-white p-4 shadow-lg mb-4 shrink-0">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="relative group flex-1">
-                <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" aria-hidden="true" />
+                <Search className="absolute left-3 sm:left-4 top-1/2 h-4 w-4 sm:h-5 sm:w-5 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-500 transition-colors" aria-hidden="true" />
                 <input
                   value={quickInput}
                   onChange={(e) => setQuickInput(e.target.value)}
-                  placeholder="SEARCH MEDICINE OR TYPE *5 FOR QUICK MULTIPLY"
-                  className="w-full rounded-xl border-2 border-slate-200 bg-slate-50 px-12 py-3 text-sm font-bold text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all"
+                  placeholder="Search or type *5 to multiply"
+                  className="w-full rounded-xl border-2 border-slate-200 bg-slate-50 pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all"
                 />
               </div>
 
-              <div className="flex items-center gap-2 rounded-xl border-2 border-slate-200 bg-slate-50 px-4 py-3">
-                <Filter className="h-4 w-4 text-slate-500" />
+              <div className="flex items-center gap-2 rounded-xl border-2 border-slate-200 bg-slate-50 px-3 sm:px-4 py-2.5 sm:py-3">
+                <Filter className="h-4 w-4 text-slate-500 shrink-0" />
                 <select
                   value={categoryFilter}
                   onChange={(event) => setCategoryFilter(event.target.value)}
-                  className="bg-transparent text-sm font-bold text-slate-700 focus:outline-none min-w-[140px]"
+                  className="bg-transparent text-xs sm:text-sm font-bold text-slate-700 focus:outline-none min-w-[100px] sm:min-w-[140px]"
                 >
                   <option value="all">All Categories</option>
                   {categories.map((category) => (
@@ -690,8 +689,8 @@ const POSTransaction = () => {
                 NO PRODUCTS FOUND
               </div>
             ) : (
-              <div className="flex-1 overflow-y-auto pr-2 custom-scrollbar min-h-0">
-                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="flex-1 overflow-y-auto pr-1 sm:pr-2 custom-scrollbar min-h-0">
+                <div className="grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
                 {sortedProducts.map((product) => {
                   const stockBadge = getProductStatusClasses(product.stockQuantity);
                   const isLowStock = product.stockQuantity <= lowStockThreshold;
@@ -700,7 +699,7 @@ const POSTransaction = () => {
                       key={product.productId}
                       type="button"
                       onClick={() => handleProductClick(product)}
-                      className={`group flex flex-col rounded-xl border-2 bg-white p-3 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 ${
+                      className={`group flex flex-col rounded-lg sm:rounded-xl border-2 bg-white p-2.5 sm:p-3 text-left shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-lg active:translate-y-0 ${
                         isLowStock 
                           ? 'border-amber-200 hover:border-amber-300 bg-amber-50/30' 
                           : 'border-slate-100 hover:border-blue-300'
@@ -736,16 +735,16 @@ const POSTransaction = () => {
           </div>
         </section>
 
-        <aside className="flex flex-col h-full overflow-hidden">
-          <div className="rounded-2xl border-2 border-slate-200 bg-white p-5 shadow-lg flex-1 flex flex-col min-h-0 overflow-hidden">
-              <div className="flex items-center justify-between mb-4 shrink-0">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/20">
-                    <ShoppingCart className="h-5 w-5 text-white" aria-hidden="true" />
+        <aside className="flex flex-col overflow-hidden" style={{ minHeight: '400px', maxHeight: 'calc(100vh - 280px)' }}>
+          <div className="rounded-2xl border-2 border-slate-200 bg-white p-4 sm:p-5 shadow-lg flex-1 flex flex-col min-h-0 overflow-hidden">
+              <div className="flex items-center justify-between mb-3 sm:mb-4 shrink-0">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-lg sm:rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/20">
+                    <ShoppingCart className="h-4 w-4 sm:h-5 sm:w-5 text-white" aria-hidden="true" />
                   </div>
                   <div>
-                    <h2 className="text-lg font-extrabold text-slate-900 uppercase tracking-tight">Cart</h2>
-                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">{cart.length} Items Added</p>
+                    <h2 className="text-base sm:text-lg font-extrabold text-slate-900 uppercase tracking-tight">Cart</h2>
+                    <p className="text-[10px] font-bold text-slate-500 uppercase tracking-wide">{cart.length} Items</p>
                   </div>
                 </div>
               </div>
@@ -764,7 +763,7 @@ const POSTransaction = () => {
                     return (
                     <div
                       key={item.product.productId}
-                      className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-slate-50/50 p-3 transition-all hover:bg-white hover:shadow-md hover:border-blue-100"
+                      className="flex flex-col gap-2 sm:gap-3 rounded-lg sm:rounded-xl border border-slate-200 bg-slate-50/50 p-2.5 sm:p-3 transition-all hover:bg-white hover:shadow-md hover:border-blue-100"
                     >
                       <div className="flex items-start justify-between gap-2">
                         <div className="flex-1 min-w-0">
@@ -879,28 +878,28 @@ const POSTransaction = () => {
               </div>
           </div>
 
-          <div className="rounded-2xl border-2 border-blue-500 bg-gradient-to-br from-blue-600 to-blue-700 p-5 text-white shadow-xl shadow-blue-500/20 mt-4 shrink-0">
-              <div className="space-y-3 mb-6">
-                <div className="flex items-center justify-between text-sm">
+          <div className="rounded-xl sm:rounded-2xl border-2 border-blue-500 bg-gradient-to-br from-blue-600 to-blue-700 p-4 sm:p-5 text-white shadow-xl shadow-blue-500/20 mt-3 sm:mt-4 shrink-0">
+              <div className="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
+                <div className="flex items-center justify-between text-xs sm:text-sm">
                   <span className="font-bold uppercase tracking-wide text-blue-100">Subtotal</span>
                   <span className="font-bold">{formatCurrency(cartTotals.subtotal)}</span>
                 </div>
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center justify-between text-xs sm:text-sm">
                   <span className="font-bold uppercase tracking-wide text-blue-100">Discount</span>
                   <span className="font-bold text-emerald-300">- {formatCurrency(cartTotals.discountAmount)}</span>
                 </div>
                 <div className="h-px bg-white/20 my-2"></div>
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-extrabold uppercase tracking-wide text-white">Total Due</span>
-                  <span className="text-3xl font-extrabold tracking-tight">{formatCurrency(cartTotals.total)}</span>
+                  <span className="text-xs sm:text-sm font-extrabold uppercase tracking-wide text-white">Total Due</span>
+                  <span className="text-2xl sm:text-3xl font-extrabold tracking-tight">{formatCurrency(cartTotals.total)}</span>
                 </div>
               </div>
 
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-2 sm:gap-3">
                 <button
                   type="button"
                   onClick={() => void handleCompleteTransaction()}
-                  className="w-full rounded-xl bg-white py-3.5 text-sm font-extrabold uppercase tracking-wide text-blue-600 shadow-lg transition-all hover:bg-blue-50 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed"
+                  className="w-full rounded-lg sm:rounded-xl bg-white py-3 sm:py-3.5 text-xs sm:text-sm font-extrabold uppercase tracking-wide text-blue-600 shadow-lg transition-all hover:bg-blue-50 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-70 disabled:hover:scale-100 disabled:cursor-not-allowed"
                   disabled={cart.length === 0 || processing}
                 >
                   {processing ? 'Processing...' : 'Complete Transaction'}
@@ -908,7 +907,7 @@ const POSTransaction = () => {
                 <button
                   type="button"
                   onClick={handleClearCart}
-                  className="w-full rounded-xl border-2 border-white/30 bg-transparent py-3 text-xs font-bold uppercase tracking-wide text-white transition-all hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full rounded-lg sm:rounded-xl border-2 border-white/30 bg-transparent py-2.5 sm:py-3 text-xs font-bold uppercase tracking-wide text-white transition-all hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed"
                   disabled={cart.length === 0 && !feedback}
                 >
                   Clear Cart

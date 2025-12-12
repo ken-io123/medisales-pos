@@ -325,32 +325,41 @@ const AdminDashboard = () => {
           </div>
           <ul className="space-y-3">
             {topProducts.length > 0 ? (
-              topProducts.map((product, index) => (
-                <li
-                  key={product.productId}
-                  className="flex items-center justify-between rounded-xl border-2 border-slate-100 bg-slate-50/50 px-5 py-4 transition-colors hover:bg-slate-50 hover:border-blue-200 group"
-                >
-                  <div className="flex items-center gap-4">
-                    <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white border-2 border-slate-200 text-sm font-extrabold text-slate-400 group-hover:border-blue-200 group-hover:text-blue-500 transition-colors">
-                      {index + 1}
-                    </span>
-                    <div>
-                      <p className="text-sm font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
-                        {product.name}
-                      </p>
-                      <p className="text-xs font-medium text-slate-500 mt-0.5">
-                        <span className="font-bold text-slate-700">{numberFormatter.format(product.unitsSold)}</span> units sold
-                      </p>
+              topProducts.map((product, index) => {
+                // Calculate total revenue of all top products
+                const totalTopProductsRevenue = topProducts.reduce((sum, p) => sum + p.revenue, 0);
+                // Calculate this product's percentage of top products revenue
+                const percentageOfTopProducts = totalTopProductsRevenue > 0 
+                  ? ((product.revenue / totalTopProductsRevenue) * 100).toFixed(1)
+                  : '0.0';
+
+                return (
+                  <li
+                    key={product.productId}
+                    className="flex items-center justify-between rounded-xl border-2 border-slate-100 bg-slate-50/50 px-5 py-4 transition-colors hover:bg-slate-50 hover:border-blue-200 group"
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-white border-2 border-slate-200 text-sm font-extrabold text-slate-400 group-hover:border-blue-200 group-hover:text-blue-500 transition-colors">
+                        {index + 1}
+                      </span>
+                      <div>
+                        <p className="text-sm font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                          {product.name}
+                        </p>
+                        <p className="text-xs font-medium text-slate-500 mt-0.5">
+                          <span className="font-bold text-slate-700">{numberFormatter.format(product.unitsSold)}</span> units sold
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-extrabold text-slate-900">{currencyFormatter.format(product.revenue)}</p>
-                    <span className="inline-block mt-1 rounded-md bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-600 border border-emerald-100">
-                      {((product.revenue / (stats?.todaySales || 1)) * 100).toFixed(1)}% of sales
-                    </span>
-                  </div>
-                </li>
-              ))
+                    <div className="text-right">
+                      <p className="text-sm font-extrabold text-slate-900">{currencyFormatter.format(product.revenue)}</p>
+                      <span className="inline-block mt-1 rounded-md bg-emerald-50 px-2 py-0.5 text-[10px] font-bold text-emerald-600 border border-emerald-100">
+                        {percentageOfTopProducts}% of top sales
+                      </span>
+                    </div>
+                  </li>
+                );
+              })
             ) : (
               <li className="rounded-xl border-2 border-dashed border-slate-300 px-4 py-12 text-center">
                 <div className="mx-auto h-12 w-12 text-slate-300 mb-3">

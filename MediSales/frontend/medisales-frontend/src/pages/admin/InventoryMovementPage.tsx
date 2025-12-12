@@ -322,34 +322,51 @@ const InventoryMovementPage = () => {
 
         {movements.length > pageSize && (
           <div className="border-t-2 border-slate-200 bg-slate-50 px-6 py-4 flex items-center justify-between">
-            <p className="text-sm font-bold text-slate-500 uppercase tracking-wide">
-              Showing <span className="text-slate-900">{(page - 1) * pageSize + 1}</span>-
-              <span className="text-slate-900">{Math.min(page * pageSize, movements.length)}</span> of{' '}
-              <span className="text-slate-900">{movements.length}</span>
+            <p className="text-sm font-medium text-slate-600">
+              Showing <span className="font-bold text-slate-900">{(page - 1) * pageSize + 1}</span> to{' '}
+              <span className="font-bold text-slate-900">{Math.min(page * pageSize, movements.length)}</span> of{' '}
+              <span className="font-bold text-slate-900">{movements.length}</span> results
             </p>
-            <div className="flex gap-2">
+            <nav className="isolate inline-flex rounded-md shadow-sm gap-2" aria-label="Pagination">
               <button
                 type="button"
                 onClick={() => setPage(page - 1)}
                 disabled={page === 1}
-                className="px-4 py-2 text-sm font-bold text-slate-700 border-2 border-slate-200 rounded-xl bg-white hover:border-blue-500 hover:text-blue-600 transition-all disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-slate-200 disabled:hover:text-slate-700"
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Previous
               </button>
-              <div className="flex items-center px-2">
-                <span className="text-sm font-bold text-slate-900">
-                  Page {page} of {Math.ceil(movements.length / pageSize)}
-                </span>
+              <div className="hidden sm:flex items-center gap-1">
+                {Array.from({ length: Math.ceil(movements.length / pageSize) }, (_, i) => i + 1)
+                  .filter(p => p === 1 || p === Math.ceil(movements.length / pageSize) || Math.abs(p - page) <= 1)
+                  .map((pageNum, index, array) => {
+                    const isGap = index > 0 && pageNum - array[index - 1] > 1;
+                    return (
+                      <div key={pageNum} className="flex items-center">
+                        {isGap && <span className="px-2 text-sm font-medium text-slate-500">...</span>}
+                        <button
+                          onClick={() => setPage(pageNum)}
+                          className={`rounded-lg px-4 py-2 text-sm font-medium ${
+                            page === pageNum
+                              ? 'bg-blue-600 text-white'
+                              : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+                          }`}
+                        >
+                          {pageNum}
+                        </button>
+                      </div>
+                    );
+                  })}
               </div>
               <button
                 type="button"
                 onClick={() => setPage(page + 1)}
                 disabled={page * pageSize >= movements.length}
-                className="px-4 py-2 text-sm font-bold text-slate-700 border-2 border-slate-200 rounded-xl bg-white hover:border-blue-500 hover:text-blue-600 transition-all disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-slate-200 disabled:hover:text-slate-700"
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Next
               </button>
-            </div>
+            </nav>
           </div>
         )}
       </div>

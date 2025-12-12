@@ -9,7 +9,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { DollarSign, ShoppingCart, TrendingUp, Filter, ChevronRight, ChevronLeft } from 'lucide-react';
+import { DollarSign, ShoppingCart, TrendingUp, Filter, ChevronRight } from 'lucide-react';
 import { reportsService } from '../../services/reportsService';
 import type { ReportPeriod, SalesDataPoint } from '../../types/Reports';
 import TransactionDetailsModal from '../../components/admin/reports/TransactionDetailsModal';
@@ -210,10 +210,10 @@ const SalesReports = () => {
               <Line 
                 type="monotone" 
                 dataKey="sales" 
-                stroke="#2563eb" 
+                stroke="#1d4ed8" 
                 strokeWidth={4} 
-                dot={{ r: 4, strokeWidth: 2, fill: '#fff', stroke: '#2563eb' }} 
-                activeDot={{ r: 8, strokeWidth: 0, fill: '#2563eb' }}
+                dot={{ r: 6, strokeWidth: 3, fill: '#fff', stroke: '#1d4ed8' }} 
+                activeDot={{ r: 8, strokeWidth: 0, fill: '#1d4ed8' }}
                 name="Revenue" 
               />
             </LineChart>
@@ -283,22 +283,22 @@ const SalesReports = () => {
         {/* Pagination Controls */}
         {totalPages > 1 && (
           <div className="flex items-center justify-between border-t-2 border-slate-200 bg-slate-50 px-6 py-4">
-            <div className="text-sm font-bold text-slate-500 uppercase tracking-wide">
-              Showing <span className="text-slate-900">{startIndex + 1}</span>-
-              <span className="text-slate-900">
+            <div className="text-sm font-medium text-slate-600">
+              Showing <span className="font-bold text-slate-900">{startIndex + 1}</span> to{' '}
+              <span className="font-bold text-slate-900">
                 {Math.min(startIndex + itemsPerPage, salesData.length)}
               </span>{' '}
-              of <span className="text-slate-900">{salesData.length}</span>
+              of <span className="font-bold text-slate-900">{salesData.length}</span> results
             </div>
-            <div className="flex items-center gap-2">
+            <nav className="isolate inline-flex rounded-md shadow-sm gap-2" aria-label="Pagination">
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
-                className="p-2 rounded-xl border-2 border-slate-200 bg-white text-slate-600 hover:border-blue-500 hover:text-blue-600 transition-all disabled:opacity-50 disabled:hover:border-slate-200 disabled:hover:text-slate-600 disabled:cursor-not-allowed"
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <ChevronLeft className="h-5 w-5" />
+                Previous
               </button>
-              <div className="flex items-center gap-1 px-2">
+              <div className="flex items-center gap-1">
                 {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
                   // Logic to show window of pages around current page
                   let pageNum = i + 1;
@@ -315,10 +315,10 @@ const SalesReports = () => {
                     <button
                       key={pageNum}
                       onClick={() => handlePageChange(pageNum)}
-                      className={`h-9 w-9 rounded-xl text-sm font-bold transition-all ${
+                      className={`rounded-lg px-4 py-2 text-sm font-medium ${
                         currentPage === pageNum
-                          ? 'bg-blue-600 text-white shadow-md shadow-blue-500/30'
-                          : 'text-slate-600 hover:bg-slate-100'
+                          ? 'bg-blue-600 text-white'
+                          : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
                       }`}
                     >
                       {pageNum}
@@ -329,11 +329,11 @@ const SalesReports = () => {
               <button
                 onClick={() => handlePageChange(currentPage + 1)}
                 disabled={currentPage === totalPages}
-                className="p-2 rounded-xl border-2 border-slate-200 bg-white text-slate-600 hover:border-blue-500 hover:text-blue-600 transition-all disabled:opacity-50 disabled:hover:border-slate-200 disabled:hover:text-slate-600 disabled:cursor-not-allowed"
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <ChevronRight className="h-5 w-5" />
+                Next
               </button>
-            </div>
+            </nav>
           </div>
         )}
       </div>

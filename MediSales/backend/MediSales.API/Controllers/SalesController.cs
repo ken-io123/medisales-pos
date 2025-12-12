@@ -25,14 +25,43 @@ namespace MediSales.API.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(object), 200)]
         [ProducesResponseType(500)]
-        public async Task<IActionResult> GetAllSales([FromQuery] int page = 1, [FromQuery] int pageSize = 10)
+        public async Task<IActionResult> GetAllSales(
+            [FromQuery] int page = 1, 
+            [FromQuery] int pageSize = 10,
+            [FromQuery] string? search = null,
+            [FromQuery] string? startDate = null,
+            [FromQuery] string? endDate = null,
+            [FromQuery] string? status = null,
+            [FromQuery] bool includeVoided = false,
+            [FromQuery] string? paymentMethod = null,
+            [FromQuery] decimal? minAmount = null,
+            [FromQuery] decimal? maxAmount = null,
+            [FromQuery] int? staffId = null)
         {
             try
             {
-                _logger.LogInformation("Fetching sales - Page: {Page}, PageSize: {PageSize}", page, pageSize);
-                var transactions = await _transactionService.GetAllTransactionsAsync();
+                _logger.LogInformation("Fetching sales - Page: {Page}, PageSize: {PageSize}, Search: {Search}, Status: {Status}", 
+                    page, pageSize, search, status);
+
+                // Build filter DTO
+                var filters = new TransactionFilterDto
+                {
+                    SearchTerm = search,
+                    StartDate = !string.IsNullOrEmpty(startDate) ? DateTime.Parse(startDate) : null,
+                    EndDate = !string.IsNullOrEmpty(endDate) ? DateTime.Parse(endDate) : null,
+                    Status = status ?? "active",
+                    IncludeVoided = includeVoided || status == "all" || status == "voided",
+                    PaymentMethod = paymentMethod,
+                    MinAmount = minAmount,
+                    MaxAmount = maxAmount,
+                    StaffId = staffId,
+                    Page = page,
+                    PageSize = pageSize
+                };
+
+                // Use FilterTransactionsAsync which handles all filtering logic
+                var transactions = await _transactionService.FilterTransactionsAsync(filters);
                 
-                // Apply pagination
                 var totalCount = transactions.Count();
                 var paginatedSales = transactions
                     .Skip((page - 1) * pageSize)
@@ -42,6 +71,7 @@ namespace MediSales.API.Controllers
                 var response = new
                 {
                     Data = paginatedSales,
+                    Total = totalCount,
                     Page = page,
                     PageSize = pageSize,
                     TotalCount = totalCount,

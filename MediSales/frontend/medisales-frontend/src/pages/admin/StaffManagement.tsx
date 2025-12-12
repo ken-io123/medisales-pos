@@ -434,14 +434,14 @@ const StaffManagement = () => {
               <button
                 onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                 disabled={currentPage === 1}
-                className="relative inline-flex items-center rounded-xl border-2 border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Previous
               </button>
               <button
                 onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                 disabled={currentPage === totalPages}
-                className="relative ml-3 inline-flex items-center rounded-xl border-2 border-slate-300 bg-white px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50 disabled:opacity-50"
+                className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Next
               </button>
@@ -455,47 +455,43 @@ const StaffManagement = () => {
                 </p>
               </div>
               <div>
-                <nav className="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+                <nav className="isolate inline-flex rounded-md shadow-sm gap-2" aria-label="Pagination">
                   <button
                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
-                    className="relative inline-flex items-center rounded-l-xl px-3 py-2 text-slate-400 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50"
+                    className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <span className="sr-only">Previous</span>
-                    <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fillRule="evenodd" d="M12.79 5.23a1 1 0 01-.02 1.06L8.832 10l3.938 3.71a1 1 0 11-1.414 1.415l-4.929-4.645a1 1 0 010-1.414l4.929-4.645a1 1 0 011.061-.02z" clipRule="evenodd" />
-                    </svg>
+                    Previous
                   </button>
-                  {Array.from({ length: totalPages }, (_, i) => i + 1)
-                    .filter(p => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1)
-                    .map((page, index, array) => {
-                      const isGap = index > 0 && page - array[index - 1] > 1;
-                      return (
-                        <div key={page} className="flex">
-                          {isGap && <span className="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-slate-700 ring-1 ring-inset ring-slate-300 focus:outline-offset-0">...</span>}
-                          <button
-                            onClick={() => setCurrentPage(page)}
-                            aria-current={currentPage === page ? 'page' : undefined}
-                            className={`relative inline-flex items-center px-4 py-2 text-sm font-bold focus:z-20 ${
-                              currentPage === page
-                                ? 'z-10 bg-blue-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600'
-                                : 'text-slate-900 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 focus:z-20 focus:outline-offset-0'
-                            }`}
-                          >
-                            {page}
-                          </button>
-                        </div>
-                      );
-                    })}
+                  <div className="flex gap-1">
+                    {Array.from({ length: totalPages }, (_, i) => i + 1)
+                      .filter(p => p === 1 || p === totalPages || Math.abs(p - currentPage) <= 1)
+                      .map((page, index, array) => {
+                        const isGap = index > 0 && page - array[index - 1] > 1;
+                        return (
+                          <div key={page} className="flex items-center">
+                            {isGap && <span className="px-2 text-sm font-medium text-slate-500">...</span>}
+                            <button
+                              onClick={() => setCurrentPage(page)}
+                              aria-current={currentPage === page ? 'page' : undefined}
+                              className={`rounded-lg px-4 py-2 text-sm font-medium ${
+                                currentPage === page
+                                  ? 'bg-blue-600 text-white'
+                                  : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+                              }`}
+                            >
+                              {page}
+                            </button>
+                          </div>
+                        );
+                      })}
+                  </div>
                   <button
                     onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                     disabled={currentPage === totalPages}
-                    className="relative inline-flex items-center rounded-r-xl px-3 py-2 text-slate-400 ring-1 ring-inset ring-slate-300 hover:bg-slate-50 focus:z-20 focus:outline-offset-0 disabled:opacity-50"
+                    className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <span className="sr-only">Next</span>
-                    <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                      <path fillRule="evenodd" d="M7.21 14.77a1 1 0 01.02-1.06L11.168 10 7.23 6.29a1 1 0 111.414-1.415l4.929 4.645a1 1 0 010 1.414l-4.929 4.645a1 1 0 01-1.061.02z" clipRule="evenodd" />
-                    </svg>
+                    Next
                   </button>
                 </nav>
               </div>

@@ -28,7 +28,7 @@ export const productService = {
     params.append('page', page.toString());
     params.append('pageSize', pageSize.toString());
     
-    if (filter?.search) params.append('search', filter.search);
+    if (filter?.search) params.append('searchTerm', filter.search);
     if (filter?.category) params.append('category', filter.category);
     if (filter?.supplier) params.append('supplier', filter.supplier);
     if (filter?.minStock) params.append('minStock', filter.minStock.toString());
@@ -65,8 +65,14 @@ export const productService = {
     successToast('Product restored successfully!');
   },
 
-  getArchivedProducts: async () => {
-    const { data } = await api.get<Product[]>('/Products/archived');
+  getArchivedProducts: async (filter?: ProductFilter) => {
+    const params = new URLSearchParams();
+    
+    if (filter?.search) params.append('searchTerm', filter.search);
+    if (filter?.category) params.append('category', filter.category);
+    if (filter?.supplier) params.append('supplier', filter.supplier);
+    
+    const { data } = await api.get<Product[]>('/Products/archived', { params });
     return data;
   },
 };

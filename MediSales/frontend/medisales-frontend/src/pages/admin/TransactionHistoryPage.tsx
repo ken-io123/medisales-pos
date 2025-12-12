@@ -713,22 +713,41 @@ export default function TransactionHistoryPage() {
 
         {/* Pagination */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 border-t-2 border-slate-200 bg-slate-50 px-6 py-4">
-          <span className="text-sm font-bold text-slate-500 uppercase tracking-wide">{currentItemsLabel}</span>
-          <div className="flex items-center gap-3">
+          <span className="text-sm font-medium text-slate-600">{currentItemsLabel}</span>
+          <nav className="isolate inline-flex rounded-md shadow-sm gap-2" aria-label="Pagination">
             <button
               type="button"
-              className="rounded-xl border-2 border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm transition-all hover:border-blue-500 hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-slate-200 disabled:hover:text-slate-700"
+              className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               onClick={() => setPagination((prev) => ({ ...prev, page: Math.max(prev.page - 1, 1) }))}
               disabled={pagination.page === 1 || loading}
             >
               Previous
             </button>
-            <span className="hidden sm:inline text-sm font-bold text-slate-900 px-3">
-              Page {pagination.page} of {pageCount || 1}
-            </span>
+            <div className="hidden sm:flex items-center gap-1">
+              {Array.from({ length: pageCount || 1 }, (_, i) => i + 1)
+                .filter(p => p === 1 || p === (pageCount || 1) || Math.abs(p - pagination.page) <= 1)
+                .map((pageNum, index, array) => {
+                  const isGap = index > 0 && pageNum - array[index - 1] > 1;
+                  return (
+                    <div key={pageNum} className="flex items-center">
+                      {isGap && <span className="px-2 text-sm font-medium text-slate-500">...</span>}
+                      <button
+                        onClick={() => setPagination((prev) => ({ ...prev, page: pageNum }))}
+                        className={`rounded-lg px-4 py-2 text-sm font-medium ${
+                          pagination.page === pageNum
+                            ? 'bg-blue-600 text-white'
+                            : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
+                        }`}
+                      >
+                        {pageNum}
+                      </button>
+                    </div>
+                  );
+                })}
+            </div>
             <button
               type="button"
-              className="rounded-xl border-2 border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm transition-all hover:border-blue-500 hover:text-blue-600 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:border-slate-200 disabled:hover:text-slate-700"
+              className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-50"
               onClick={() =>
                 setPagination((prev) => ({ ...prev, page: Math.min(prev.page + 1, pageCount || 1) }))
               }
@@ -736,7 +755,7 @@ export default function TransactionHistoryPage() {
             >
               Next
             </button>
-          </div>
+          </nav>
         </div>
       </div>
 
