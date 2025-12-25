@@ -23,7 +23,6 @@ A complete Point of Sale and Inventory Management System built for pharmaceutica
 - Low stock alerts
 - Product categories and organization
 - Expiry date tracking
-- Automated reorder alerts
 
 ### Dashboard & Analytics
 - Sales performance metrics
