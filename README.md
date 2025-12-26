@@ -241,11 +241,10 @@ dotnet ef database update
 
 If you'd like to contribute:
 
-1. Fork the repository
-2. Create a feature branch (git checkout -b feature/NewFeature)
-3. Commit your changes (git commit -m 'Add NewFeature')
-4. Push to the branch (git push origin feature/NewFeature)
-5. Open a Pull Request
+1. Create a feature branch (git checkout -b feature/NewFeature)
+2. Commit your changes (git commit -m 'Add NewFeature')
+3. Push to the branch (git push origin feature/NewFeature)
+4. Open a Pull Request
 
 ## License
 
