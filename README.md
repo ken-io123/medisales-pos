@@ -237,15 +237,6 @@ dotnet ef database drop
 dotnet ef database update
 ```
 
-## Contributing
-
-If you'd like to contribute:
-
-1. Create a feature branch (git checkout -b feature/NewFeature)
-2. Commit your changes (git commit -m 'Add NewFeature')
-3. Push to the branch (git push origin feature/NewFeature)
-4. Open a Pull Request
-
 ## License
 
 This project is licensed under the MIT License.
