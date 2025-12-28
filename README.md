@@ -226,10 +226,6 @@ Database connection problems:
 - Confirm database exists
 - Check firewall settings
 
-Port conflicts:
-- Backend: Modify ports in Properties/launchSettings.json
-- Frontend: Vite will use next available port automatically
-
 Database migration errors:
 ```bash
 # Reset database
