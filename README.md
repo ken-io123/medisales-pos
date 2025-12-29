@@ -135,20 +135,6 @@ npm run dev
 
 The frontend will be available at `http://localhost:5173`
 
-## Default Login Credentials
-
-The database seeder creates these default accounts for testing:
-
-Admin Account:
-- Username: admin
-- Password: admin123
-
-Cashier Account:
-- Username: cashier1
-- Password: cashier123
-
-Important: Change these passwords after first login.
-
 ## Project Structure
 
 ```
