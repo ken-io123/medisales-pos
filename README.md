@@ -135,34 +135,6 @@ npm run dev
 
 The frontend will be available at `http://localhost:5173`
 
-## Project Structure
-
-```
-MediSales POS and Inventory Management System/
-├── MediSales/
-│   ├── backend/
-│   │   ├── MediSales.API/          # Main API project
-│   │   │   ├── Controllers/        # API endpoints
-│   │   │   ├── Models/             # Data models
-│   │   │   ├── DTOs/               # Data transfer objects
-│   │   │   ├── Services/           # Business logic
-│   │   │   ├── Repositories/       # Data access layer
-│   │   │   ├── Hubs/               # SignalR hubs
-│   │   │   ├── Data/               # Database context
-│   │   │   └── Utilities/          # Helper classes
-│   │   └── MediSales.Tests/        # Unit tests
-│   └── frontend/
-│       └── medisales-frontend/     # React application
-│           ├── src/
-│           │   ├── components/     # React components
-│           │   ├── pages/          # Page components
-│           │   ├── services/       # API services
-│           │   ├── contexts/       # React contexts
-│           │   └── utils/          # Utility functions
-│           └── public/             # Static assets
-└── MediSales POS and Inventory Management System.sln
-```
-
 ## Configuration
 
 Backend configuration files:
