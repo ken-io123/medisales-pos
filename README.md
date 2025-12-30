@@ -162,14 +162,13 @@ dotnet test --collect:"XPlat Code Coverage"
 ## Building for Production
 
 Backend build:
-```bash
+```
 cd MediSales/backend/MediSales.API
 dotnet publish -c Release -o ./publish
 ```
 
 Frontend build:
 
-```bash
 cd MediSales/frontend/medisales-frontend
 npm run build
 ```
