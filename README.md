@@ -173,23 +173,6 @@ cd MediSales/frontend/medisales-frontend
 npm run build
 ```
 
-The production files will be in the dist folder.
-
-## Troubleshooting
-
-Database connection problems:
-- Check if MySQL service is running
-- Verify connection string credentials
-- Confirm database exists
-- Check firewall settings
-
-Database migration errors:
-```bash
-# Reset database
-dotnet ef database drop
-dotnet ef database update
-```
-
 ## License
 
 This project is licensed under the MIT License.
