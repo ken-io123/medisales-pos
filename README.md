@@ -70,7 +70,6 @@ You'll need these installed before running the application:
 - .NET 9 SDK (https://dotnet.microsoft.com/download/dotnet/9.0)
 - Node.js v18 or higher (https://nodejs.org/)
 - MySQL v8.0 or higher (https://dev.mysql.com/downloads/mysql/)
-- Git (https://git-scm.com/downloads)
 
 ## Getting Started
 
