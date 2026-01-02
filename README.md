@@ -84,7 +84,7 @@ cd medisales-pos
 
 First, create the MySQL database:
 
-```sql
+```MySQL
 CREATE DATABASE medisales_db;
 ```
 
