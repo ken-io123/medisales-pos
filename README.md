@@ -117,8 +117,6 @@ dotnet ef database update
 dotnet run
 ```
 
-The API will be available at `https://localhost:7001` and `http://localhost:5001`
-
 ### 4. Frontend Setup
 
 ```bash
