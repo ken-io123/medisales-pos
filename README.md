@@ -152,10 +152,6 @@ cd MediSales/backend/MediSales.Tests
 # Run all tests
 dotnet test
 
-# Run tests with coverage
-dotnet test --collect:"XPlat Code Coverage"
-```
-
 ## Building for Production
 
 Backend build:
