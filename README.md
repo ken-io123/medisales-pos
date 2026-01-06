@@ -145,10 +145,6 @@ Frontend configuration:
 
 ## Running Tests
 
-```bash
-# Navigate to the test project
-cd MediSales/backend/MediSales.Tests
-
 # Run all tests
 dotnet test
 
