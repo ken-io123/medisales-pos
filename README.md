@@ -119,10 +119,6 @@ dotnet run
 
 ### 4. Frontend Setup
 
-```bash
-# Open a new terminal and navigate to the frontend
-cd MediSales/frontend/medisales-frontend
-
 # Install dependencies
 npm install
 
