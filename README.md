@@ -113,7 +113,7 @@ dotnet restore
 # Apply database migrations
 dotnet ef database update
 
-# Run the API (will start on https://localhost:7001)
+# Run the API
 dotnet run
 ```
 
