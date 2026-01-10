@@ -168,7 +168,7 @@ ken-io123
 
 ## Support
 
-For questions or issues, contact: kenmesana123@gmail.com
+Contact: kenmesana123@gmail.com
 
 ---
 
